@@ -1,0 +1,32 @@
+﻿@using MvcKütüphane.Models.Entity
+@model List<TBLYAZAR>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<h2>Yazarlar</h2>
+
+<table class="table table-striped">
+    <tr style="background-color:rgb(252, 178, 22)">
+        <th>Id</th>
+        <th>Ad</th>
+        <th>Soyad</th>
+        <th>Sil</th>
+        <th>Güncelle</th>
+        <th>Yazarın Kitapları</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ID</td>
+            <td>@item.AD</td>
+            <td>@item.SOYAD</td>
+            <td>@Html.ActionLink("Sil", "YazarSil", new { id = item.ID }, new { @class = "btn btn-danger", onclick = "return confirm('Silmek İstiyor Musunuz ?')" })</td>
+            <td><a href="/Yazar/YazarGetir/@item.ID" class="btn btn-warning">Güncelle</a></td>
+            <td><a href="/Yazar/YazarKitaplar/@item.ID" class="btn btn-default"
+                   style="background-color:lightcoral; color:wheat">Yazarın Kitapları</a></td>
+        </tr>
+    }
+</table>
+<a class="btn btn-primary" href="/Yazar/YazarEkle/">Yeni Yazar Ekle</a>

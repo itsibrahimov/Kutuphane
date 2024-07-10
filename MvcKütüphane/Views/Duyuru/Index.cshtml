@@ -1,0 +1,51 @@
+﻿@using MvcKütüphane.Models.Entity;
+@model List<TBLDUYURULAR>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layout.cshtml";
+    string renk = "";
+}
+
+<h2>Duyurular</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Duyuru No</th>
+        <th>Kategori</th>
+        <th>Tarih</th>
+        <th>İçerik</th>
+        <th>Sil</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        if (item.KATEGORI == "Diğer")
+        {
+            renk = "bg-info text-white";
+        }
+
+        if (item.KATEGORI == "Yeni Kitap")
+        {
+            renk = "bg-warning text-white";
+        }
+
+        if (item.KATEGORI == "İletişim")
+        {
+            renk = "bg-success text-white";
+        }
+
+        if (item.KATEGORI == "Kitapları Geciktirmeyin")
+        {
+            renk = "bg-danger text-white";
+        }
+
+        <tr class="@renk">
+            <td>@item.ID</td>
+            <td >@item.KATEGORI</td>
+            <td>@Convert.ToDateTime(item.Tarih).ToString("dd/MM/yyyy")</td>
+            <td><a href="/Duyuru/DuyuruSil/@item.ID" class="btn btn-danger">Sil</a></td>
+            <td><a href="/Duyuru/DuyuruDetay/@item.ID" class="btn btn-default" style="background-color:lightcoral">Detaylar</a></td>
+        </tr>
+    }
+</table>
+<a href="/Duyuru/YeniDuyuru/" class="btn btn-primary">Yeni Duyuru Ekle</a>
+
